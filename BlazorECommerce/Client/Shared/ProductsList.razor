@@ -1,0 +1,69 @@
+﻿@inject IProductServices _productServices
+@implements IDisposable
+
+@if (_productServices.Products == null || _productServices.Products.Count == 0)
+{
+    <span>@_productServices.Message</span>
+}
+else
+{
+    <ul class="list-unstyled">
+        @foreach (var product in _productServices.Products)
+        {
+            <a>
+            <li class="media my-3">
+                <div class="media-img-wrapper mr-2">
+                    <a href="/product/@product.Id">
+                        <img src="@product.ImageUrl" alt="@product.Title" class="media-img" />
+                    </a>
+                </div>
+                <div>
+                   <div class="media-body">
+                        <h2>
+                                @product.Title
+                        </h2>
+                   </div>
+                    <p>@product.Description</p>
+                    <h5 class="price">
+                        @GetPriceText(product)
+                    </h5>
+                </div>
+            </li>
+            </a>
+        }
+    </ul>
+    @for (var i = 1; i <= _productServices.PageCount; i++)
+   {
+        <a class="btn page-selection
+                 @(i == _productServices.CurrentPage ? "btn-info" : "btn-outline-info")
+                 "
+   href="/search/@_productServices.LastSearchText/@i">@i</a>
+   }
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        InvokeAsync(StateHasChanged);
+        _productServices.ProductChanged += StateHasChanged;
+    }
+    public void Dispose()
+    {
+        _productServices.ProductChanged -= StateHasChanged;
+    }
+    private string GetPriceText(Product product)
+    {
+        var variants = product.ProductVariants;
+        if (variants.Count==0)
+        {
+            return string.Empty;
+        }
+        else if(variants.Count == 1)
+        {
+            return $"${variants[0].Price}";
+        }
+        var minPrice = variants.Min(p => p.Price);
+        return $"Starting at ${minPrice}";
+    }
+}
+

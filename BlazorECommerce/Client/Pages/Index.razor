@@ -1,0 +1,37 @@
+﻿@page "/"
+@page "/search/{searchText}/{page:int}"
+@page "/{categoryUrl}"
+@inject IProductServices _service
+
+<PageTitle>My Shop Items</PageTitle>
+
+@if (SearchText == null && CategoryUrl == null)
+{
+    <FeaturedProducts />
+}
+else
+{
+    <ProductsList />
+}
+
+@code{
+    [Parameter]
+    public string? CategoryUrl { get; set; } = null;
+    [Parameter]
+    public string? SearchText { get; set; } = null; 
+    [Parameter]
+    public int page { get; set; } = 1;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (SearchText != null)
+        {
+            await _service.SearchProducts(SearchText,page);
+        }
+        else
+        {
+            await _service.GetProducts(CategoryUrl);
+        }
+    }
+}
