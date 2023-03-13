@@ -1,5 +1,6 @@
 global using BlazorECommerce.Shared;
 using BlazorECommerce.Server.Data;
+using BlazorECommerce.Server.Services.AuthService;
 using BlazorECommerce.Server.Services.CartService;
 using BlazorECommerce.Server.Services.CategoryService;
 using BlazorECommerce.Server.Services.ProductService;
@@ -22,6 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 

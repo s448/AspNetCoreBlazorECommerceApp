@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BlazorEcommerce.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorECommerce.Server.Data
 {
@@ -222,6 +223,7 @@ namespace BlazorECommerce.Server.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<ProductVariant> productVariants { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 
 }

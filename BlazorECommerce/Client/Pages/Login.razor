@@ -1,0 +1,28 @@
+﻿@page "/login"
+@using BlazorEcommerce.Shared
+
+<PageTitle>Login</PageTitle>
+
+<EditForm Model="userLogin" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="userLogin.Email" class="form-control" />
+        <ValidationMessage For="@(() => userLogin.Email)" />
+    </div>
+    <div class="mb-3">
+        <label for="password">Password</label>
+        <InputText id="password" @bind-Value="userLogin.Password" class="form-control" type="password" />
+        <ValidationMessage For="@(() => userLogin.Password)" />
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+@code {
+    UserLogin userLogin = new UserLogin();
+
+    private async Task HandleLogin()
+    {
+        Console.WriteLine("Log me In :)");
+    }
+}
