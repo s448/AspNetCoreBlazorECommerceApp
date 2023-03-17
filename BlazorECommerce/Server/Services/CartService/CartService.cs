@@ -2,6 +2,7 @@
 using BlazorECommerce.Shared;
 using BlazorECommerce.Shared.DTO;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace BlazorECommerce.Server.Services.CartService
 {
@@ -13,6 +14,8 @@ namespace BlazorECommerce.Server.Services.CartService
         {
             _context = context;
         }
+
+
         public async Task<ServiceResponse<List<CartProductResponse>>> GetCartItems(List<CardItem> cartItems)
         {
             var result = new ServiceResponse<List<CartProductResponse>>
@@ -57,6 +60,15 @@ namespace BlazorECommerce.Server.Services.CartService
             }
 
             return result;
+        }
+
+        public async Task<ServiceResponse<List<CartProductResponse>>> StoreCartItems(List<CardItem> cardItems,int userId)
+        {
+            cardItems.ForEach(ci => ci.UserId =  userId);
+            _context.CartItems.AddRange(cardItems);
+            await _context.SaveChangesAsync();
+
+            return await GetCartItems(await _context.CartItems.Where(ci => ci.UserId == userId).ToListAsync());
         }
     }
 }
