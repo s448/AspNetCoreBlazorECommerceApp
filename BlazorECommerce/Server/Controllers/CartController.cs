@@ -1,8 +1,6 @@
 ﻿using BlazorECommerce.Server.Services.CartService;
 using BlazorECommerce.Shared.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace BlazorECommerce.Server.Controllers
 {
@@ -11,7 +9,6 @@ namespace BlazorECommerce.Server.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
-
         public CartController(ICartService cartService)
         {
             _cartService = cartService;
@@ -27,8 +24,41 @@ namespace BlazorECommerce.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<CartProductResponse>>>> StoreCartItems(List<CardItem> cartItems)
         {
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var result = await _cartService.StoreCartItems(cartItems,userId);
+            var result = await _cartService.StoreCartItems(cartItems);
+            return Ok(result);
+        }
+
+        [HttpGet("count")]
+        public async Task<ActionResult<ServiceResponse<int>>> GetCount()
+        {
+            return await _cartService.GetCartItemsCount();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ServiceResponse<List<CartProductResponse>>>> GetDbCartProducts()
+        {
+            var result = await _cartService.GetDbCartProducts();
+            return Ok(result);
+        }
+
+        [HttpPost("add")]
+        public async Task<ActionResult<ServiceResponse<bool>>> AddToCart(CardItem cartItem)
+        {
+            var result = await _cartService.AddToCart(cartItem);
+            return Ok(result);
+        }
+
+        [HttpPut("update-quantity")]
+        public async Task<ActionResult<ServiceResponse<bool>>> UpdateQuantity(CardItem cartItem)
+        {
+            var result = await _cartService.UpdateQuantity(cartItem);
+            return Ok(result);
+        }
+
+        [HttpDelete("{productId}/{productTypeId}")]
+        public async Task<ActionResult<ServiceResponse<bool>>> RemoveItemFromCart(int productId, int productTypeId)
+        {
+            var result = await _cartService.RemoveItemFromCart(productId, productTypeId);
             return Ok(result);
         }
 
