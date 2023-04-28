@@ -1,6 +1,7 @@
 ﻿@page "/Cart"
 @inject ICardService CartService
-
+@inject IOrderService OrderService
+@inject NavigationManager NavManager
 @if(cartProducts == null || cartProducts.Count == 0)
 {
     <span>@message</span>
@@ -34,6 +35,7 @@ else
             Total (@cartProducts.Count) : $@cartProducts.Sum(p => p.Price * p.Quantity)
         </div>
     </div>
+    <button @onclick="PlaceOrder" class="btn alert-success float-end mt-1">Checkout</button>
 }
 
 @code {
@@ -67,5 +69,11 @@ else
         if (product.Quantity < 1)
             product.Quantity = 1;
         await CartService.UpdateCartItemQuantity(product);
+    }
+
+    private async Task PlaceOrder()
+    {
+        string url = await OrderService.PlaceOrder();
+        NavManager.NavigateTo(url);
     }
 }

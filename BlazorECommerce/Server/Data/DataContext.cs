@@ -233,8 +233,3 @@ namespace BlazorECommerce.Server.Data
     }
 
 }
-
-
-/*
- *
- */

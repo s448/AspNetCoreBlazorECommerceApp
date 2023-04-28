@@ -3,6 +3,7 @@ using BlazorECommerce.Server.Data;
 using BlazorECommerce.Server.Services.AuthService;
 using BlazorECommerce.Server.Services.CartService;
 using BlazorECommerce.Server.Services.CategoryService;
+using BlazorECommerce.Server.Services.OrderService;
 using BlazorECommerce.Server.Services.ProductService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
