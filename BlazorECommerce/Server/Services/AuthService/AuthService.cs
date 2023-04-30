@@ -69,7 +69,6 @@ namespace BlazorECommerce.Server.Services.AuthService
             return false;
         }
 
-
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
@@ -136,6 +135,18 @@ namespace BlazorECommerce.Server.Services.AuthService
             var httpContext = _httpContextAccessor.HttpContext;
 
             return int.Parse(httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        }
+
+        string IAuthService.GetUserEmail()
+        {
+            var httpContext = _httpContextAccessor.HttpContext;
+
+            return httpContext.User.FindFirst(ClaimTypes.Name)?.Value;
+        }
+
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
         }
     }
 }

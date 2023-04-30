@@ -6,7 +6,7 @@ namespace BlazorECommerce.Server.Services.CartService
     {
         Task<ServiceResponse<List<CartProductResponse>>> GetCartItems(List<CardItem> cartItems);
         Task<ServiceResponse<List<CartProductResponse>>> StoreCartItems(List<CardItem> cardItems);
-        Task<ServiceResponse<List<CartProductResponse>>> GetDbCartProducts();
+        Task<ServiceResponse<List<CartProductResponse>>> GetDbCartProducts(int? userId = null);
         Task<ServiceResponse<int>> GetCartItemsCount();
         Task<ServiceResponse<bool>> AddToCart(CardItem cartItem);
         Task<ServiceResponse<bool>> UpdateQuantity(CardItem cartItem);
