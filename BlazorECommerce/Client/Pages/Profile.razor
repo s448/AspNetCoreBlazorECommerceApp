@@ -3,7 +3,17 @@
 @inject IAuthService AuthService
 @attribute [Authorize]
 
+<AuthorizeView>
+    <h2>Hi you're logged in with @context.User.Identity.Name</h2>
+</AuthorizeView>
+
+<h5>Your address</h5>
+<AddressForm />
+<br />
+<br />
 <h5>Change Password</h5>
+<br />
+<br />
 
 <EditForm Model="request" OnValidSubmit="ChangePassword">
     <DataAnnotationsValidator></DataAnnotationsValidator>
@@ -21,9 +31,8 @@
 </EditForm>
 @message
 
-<AuthorizeView>
-    <h2>Hi you're logged in with @context.User.Identity.Name</h2>
-</AuthorizeView>
+
+
 @code {
     UserChangePassword request = new UserChangePassword();
     string message = string.Empty;

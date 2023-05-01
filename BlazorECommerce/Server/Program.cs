@@ -1,5 +1,6 @@
 global using BlazorECommerce.Shared;
 using BlazorECommerce.Server.Data;
+using BlazorECommerce.Server.Services.AddressService;
 using BlazorECommerce.Server.Services.AuthService;
 using BlazorECommerce.Server.Services.CartService;
 using BlazorECommerce.Server.Services.CategoryService;
@@ -31,6 +32,7 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 

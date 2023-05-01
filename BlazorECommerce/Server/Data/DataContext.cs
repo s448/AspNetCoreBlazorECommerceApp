@@ -230,6 +230,7 @@ namespace BlazorECommerce.Server.Data
         public DbSet<CardItem> CartItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Address> Addresses { set; get; }
     }
 
 }
