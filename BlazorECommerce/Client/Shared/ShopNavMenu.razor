@@ -1,5 +1,5 @@
 ﻿@inject ICategoryService _categoryService
-
+@implements IDisposable
 <div class="container-fluid">
     <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -36,5 +36,11 @@
     protected async override Task OnInitializedAsync()
     {
         await _categoryService.GetCategories();
+        _categoryService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        _categoryService.OnChange -= StateHasChanged;
     }
 }

@@ -1,6 +1,7 @@
 global using System.Net.Http.Json;
 global using BlazorECommerce.Shared;
 global using Microsoft.AspNetCore.Components.Authorization;
+global using BlazorECommerce.Client.Services.ProductTypeService;
 using BlazorECommerce.Client;
 using BlazorECommerce.Client.Services.ProductServices;
 using BlazorECommerce.Client.Services.CategoryService;
@@ -25,6 +26,7 @@ builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
