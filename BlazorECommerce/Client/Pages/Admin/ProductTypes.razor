@@ -62,15 +62,15 @@
 
     private void CreateNewProductType()
     {
-        //editingProductType = ProductTypeService.CreateNewProductType();
+        editingProductType = ProductTypeService.CreateNewProductType();
     }
 
     private async Task UpdateProductType()
     {
-        //if (editingProductType.IsNew)
-        //    await ProductTypeService.AddProductType(editingProductType);
-        //else
-        //    await ProductTypeService.UpdateProductType(editingProductType);
-        //editingProductType = new ProductType();
+        if (editingProductType.IsNew)
+            await ProductTypeService.AddProductType(editingProductType);
+        else
+            await ProductTypeService.UpdateProductType(editingProductType);
+        editingProductType = new ProductType();
     }
 }

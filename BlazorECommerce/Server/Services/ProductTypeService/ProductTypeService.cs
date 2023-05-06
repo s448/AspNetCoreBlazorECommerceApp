@@ -1,4 +1,5 @@
 ﻿using BlazorECommerce.Server.Data;
+using BlazorECommerce.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorECommerce.Server.Services.ProductTypeService
@@ -13,6 +14,7 @@ namespace BlazorECommerce.Server.Services.ProductTypeService
 
         public async Task<ServiceResponse<List<ProductType>>> AddProductType(ProductType productType)
         {
+            productType.IsNew = productType.Editing = false;
             _dataContext.ProductTypes.Add(productType);
             await _dataContext.SaveChangesAsync();
             return await GetProductTypes();
