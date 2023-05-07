@@ -4,7 +4,9 @@
     {
         event Action ProductChanged;
         List<Product> Products { set; get; }
+        List<Product> AdminProducts { set; get; }
         Task GetProducts(string? categoryUrl = null);
+        Task GetAdminProducts();
         Task<ServiceResponse<Product>> GetProductById(int productId);
         //start => pagination params
         int CurrentPage { get; set; }
