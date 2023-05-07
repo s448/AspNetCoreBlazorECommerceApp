@@ -5,6 +5,7 @@ namespace BlazorECommerce.Server.Services.ProductService
     public interface IProductService
     {
         Task<ServiceResponse<List<Product>>> GetProductsAsync();
+        Task<ServiceResponse<List<Product>>> GetAdminProducts();
         Task<ServiceResponse<Product>> GetProductAsync(int productId);
         Task<ServiceResponse<List<Product>>> GetProductsByCategory(string categoryUrl);
         Task<ServiceResponse<ProductSearchResult>> SearchProduct(string searchText, int page);
